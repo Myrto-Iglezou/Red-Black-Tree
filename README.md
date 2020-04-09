@@ -18,16 +18,16 @@ If n is the total number of elements in the tree:
  
  Algorithm  | Average | Worst case
  ---------- | ------- | ----------
-  Space		    O(n)	    O(n)
-  Search	   	O(log n)	O(log n)
-  Insert	  	O(log n)	O(log n)
-  Delete	  	O(log n)	O(log n)
+  Space		   | O(n)	    |O(n)
+  Search	   |	O(log n)	|O(log n)
+  Insert	  	| O(log n)	|O(log n)
+  Delete	  	| O(log n)	|O(log n)
   
   # The files
   
   The Insertion, Deletion and Rotation functions are based on
 corresponding functions in Thomas H. Cormen's book (pp. 313-326):
-https://github.com/walkccc/CLRS
+https://github.com/walkccc/CLRS.
 In place of T.empty, a guard tree node has been created, which always points to
 guard and has a black color, so that the color of non-existent nodes is always considered
 black.
