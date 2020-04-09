@@ -4,7 +4,6 @@
 #include "RBT.h"
 
 void LeftRotate(Treenode **root,Treenode * x){
-	
 	Treenode * y = x->right;		
 	x->right = y->left;				 
 									// left child of y becomes the right child of x
@@ -23,8 +22,7 @@ void LeftRotate(Treenode **root,Treenode * x){
 }
 
 void RightRotate(Treenode **root,Treenode * x){
-    
-	Treenode * y = x->left;
+ 	Treenode * y = x->left;
 	x->left = y->right;
 		
 	if(y->right!=guard)
@@ -41,9 +39,9 @@ void RightRotate(Treenode **root,Treenode * x){
 	x->parent = y;
 }
 
-void insertion(Treenode ** root,voterptr voter){
+void insertion(Treenode ** root,void* data,int (*comparator)(const void*,const void*)){
 	Treenode * z = malloc(sizeof(Treenode));
-	z->constituent = voter;
+	z->data = data;
 	z->left = guard;
 	z->right = guard;
 	z->parent = guard;
@@ -57,13 +55,13 @@ void insertion(Treenode ** root,voterptr voter){
 		
 	while(x!=guard){			// stop when x finds the last node and save it at y, x becomes guard
 		y = x;
-		if(strcmp(z->constituent->id, x->constituent->id)<0)
+		if(comparator(z->data, x->data)<0)
 			x = x->left;
 		else x = x->right;
 	}
 	z->parent = y;
 	
-	if(strcmp(z->constituent->id, y->constituent->id)<0) //put z right or left,depends on the id
+	if(comparator(z->data, y->data)<0) //put z right or left,depends on the id
 		y->left = z;
 	else 
 		y->right = z;
@@ -112,29 +110,28 @@ void Fixedinsertion(Treenode **root,Treenode * z){	// we insert z in this functi
 	(*root)->color = 'B'; //root has to be always black
 }
 
-Treenode* CheckVoter(Treenode *root,char* id){	// check
+Treenode* FindData(Treenode *root,void* data,int (*comparator)(const void*,const void*)){	// check
 	Treenode *temp  = root;			
 
-	if(temp==guard || !strcmp(temp->constituent->id,id))
+	if(temp==guard || !comparator(temp->data,data))
 		return temp;
-	if(strcmp(temp->constituent->id,id)>0){
+	if(comparator(temp->data,data)>0){
 		temp = temp->left;
-		CheckVoter(temp,id);
+		FindData(temp,data,comparator);
 	}
-	else if(strcmp(temp->constituent->id,id)<0){
+	else if(comparator(temp->data,data)<0){
 		temp = temp->right;
-		CheckVoter(temp,id);
+		FindData(temp,data,comparator);
 	}
 }
 
-void DeleteVoter(Treenode **root,char* id){
-
-	Treenode * z = CheckVoter(*root,id);
+void DeleteData(Treenode **root,void* data,int (*comparator)(const void*,const void*)){
+	Treenode * z = FindData(*root,data,comparator);
 	Treenode * y = z;
 	Treenode * x;
-	if(z==guard)	//if voter doesn't exist return
+	if(z==guard)	//if data doesn't exist return
 		return;
-	delete_v(z->constituent);  //delete the voter node
+	//free(data) 		//delete the node
 	char fcolor = y->color;
 	if(z->left == guard){		// if z has one child(on the right)
 		x = z->right;
@@ -235,17 +232,15 @@ void deleteTree(Treenode * root){
 		return;
 	deleteTree(root->left);
 	deleteTree(root->right);
-	delete_v(root->constituent);
+	//free(root->data);
 	free(root);	
 }
-
-
 
 void printTree(FILE * f,Treenode * root){	//print tree in the outfile
 	if(root==guard)
 		return;
 	printTree(f,root->left);
-	fprintf(f, "%s %s %s %d %s %d \n", root->constituent->id,root->constituent->name,root->constituent->surname, root->constituent->age,root->constituent->gender,root->constituent->PostalCode);
+	//printf("%p\n",root->data)
 	printTree(f,root->right);	
 }
 
@@ -254,7 +249,9 @@ Treenode* createGuard(){
 	guard->left = guard;
 	guard->right = guard;
 	guard->parent = guard;
-	guard->constituent = NULL;
+	guard->data = NULL;
 	guard->color = 'B';
 	return guard;
 }
+
+

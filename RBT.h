@@ -16,15 +16,15 @@ void LeftRotate(Treenode **root,Treenode* x);
 
 void RightRotate(Treenode **root,Treenode* y);
 
-void insertion(Treenode **root,voterptr voter);
+void insertion(Treenode **root,void* data,int (*comparator)(const void*,const void*));
 
 void Fixedinsertion(Treenode **root,Treenode* z);
 
 void deleteTree(Treenode * root);
 
-Treenode* FindData(Treenode *root,void* data);
+Treenode* FindData(Treenode *root,void* data,int (*comparator)(const void*,const void*));
 
-void DeleteVoter(Treenode **root,char* id);
+void DeleteData(Treenode **root,void* data,int (*comparator)(const void*,const void*)){
 
 void FixedDelete(Treenode **root,Treenode* x);
 
@@ -33,3 +33,5 @@ void transplant(Treenode **root,Treenode * x,Treenode* y);
 void voted(Treenode *root,int *count);
 
 void printTree(FILE* f,Treenode * root);
+
+int comparator(const void* p1, const void* p2);
