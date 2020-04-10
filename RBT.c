@@ -110,8 +110,8 @@ void Fixedinsertion(Treenode **root,Treenode * z){	// we insert z in this functi
 	(*root)->color = 'B'; //root has to be always black
 }
 
-Treenode* FindData(Treenode *root,void* data,int (*comparator)(const void*,const void*)){	// check
-	Treenode *temp  = root;			
+Treenode* FindData(Treenode *root,void* data,int (*comparator)(const void*,const void*)){	// search tree
+	Treenode *temp  = root;																// to find the data
 
 	if(temp==guard || !comparator(temp->data,data))
 		return temp;
@@ -236,7 +236,7 @@ void deleteTree(Treenode * root){
 	free(root);	
 }
 
-void printTree(FILE * f,Treenode * root){	//print tree in the outfile
+void printTree(FILE * f,Treenode * root){	//print tree 
 	if(root==guard)
 		return;
 	printTree(f,root->left);
