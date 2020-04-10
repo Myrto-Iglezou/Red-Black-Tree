@@ -30,8 +30,6 @@ void FixedDelete(Treenode **root,Treenode* x);
 
 void transplant(Treenode **root,Treenode * x,Treenode* y);
 
-void voted(Treenode *root,int *count);
-
 void printTree(FILE* f,Treenode * root);
 
 int comparator(const void* p1, const void* p2);
