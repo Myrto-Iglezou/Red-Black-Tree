@@ -8,7 +8,7 @@ Balance is preserved by painting each node of the tree with one of two colors in
 
 Every node follows following rules:
 * Every node has a color either red or black
-* Root of tree is always black
+* The root and the leaves(NIL) are black
 * A red node cannot have a red parent or red child
 * Every path from a node (including root) to any of its descendant NULL node has the same number of black nodes
 
@@ -28,6 +28,6 @@ If n is the total number of elements in the tree:
   The Insertion, Deletion and Rotation functions are based on
 corresponding functions in Thomas H. Cormen's book (pp. 313-326):
 https://github.com/walkccc/CLRS.
-In place of T.empty, a guard tree node has been created, which always points to
+In place of T.nil, a guard tree node has been created, which always points to
 guard and has a black color, so that the color of non-existent nodes is always considered
 black.
