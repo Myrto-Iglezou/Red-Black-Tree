@@ -24,7 +24,7 @@ void deleteTree(Treenode * root);
 
 Treenode* FindData(Treenode *root,void* data,int (*comparator)(const void*,const void*));
 
-void DeleteData(Treenode **root,void* data,int (*comparator)(const void*,const void*)){
+void DeleteData(Treenode **root,void* data,int (*comparator)(const void*,const void*));
 
 void FixedDelete(Treenode **root,Treenode* x);
 
